@@ -1,0 +1,75 @@
+
+<h4 mat-dialog-title *ngIf="!edit">Log your workout on {{datestring.format("YYYY-MM-DD")}}</h4>
+<h4 mat-dialog-title *ngIf="edit">Edit workout on {{datestring.format("YYYY-MM-DD")}}</h4>
+
+
+<mat-dialog-content [formGroup]="workoutForm" class="formwidth" >
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Sport</mat-label>
+            <input type="search" placeholder="Pick one" matInput class="form-control" formControlName="sport" [matAutocomplete]="auto" maxlength="30" required>
+            <mat-error *ngIf="workoutForm.controls.sport.invalid">Field is required</mat-error>
+        
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+            </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+
+
+        <mat-form-field class="fullwidth">
+        <mat-label>Duration</mat-label>
+        <input matInput class="form-control" formControlName="duration" id="duration" name="duration" type="time" maxlength="10" required>
+        <mat-error *ngIf="getDuration.invalid">Field is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="fullwidth">
+        <mat-label>Distance (km)</mat-label>
+        <input matInput class="form-control" formControlName="distance" id="distance" name="distance" placeholder= "km" maxlength="10" required>
+        <mat-error *ngIf="workoutForm.controls.distance.hasError('required')">Field is required</mat-error>
+        <mat-error *ngIf="workoutForm.controls.distance.hasError('noNumber')">Input must be a number</mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field class="fullwidth">
+            <mat-label>Intensity</mat-label>
+            <mat-select  class="form-control" formControlName="intensity"  id="intensity" name="intensity" required >
+                <mat-option *ngFor="let level of intensitylevels" [value]="level">{{level.value}}</mat-option>
+            </mat-select>
+
+            <mat-hint>{{workoutForm.controls.intensity.value?.hint}}</mat-hint>
+
+
+            <mat-error *ngIf="workoutForm.controls.intensity.invalid">Field is required</mat-error>
+   
+        </mat-form-field>
+
+        <mat-form-field class="fullwidth">
+            <mat-label>Description</mat-label>
+            <textarea matInput #description class="form-control" formControlName="description" id="description" name="description" rows="2" data-min-rows="2" maxlength="255" class="autoExpand" required></textarea>
+            
+            <mat-hint align="end">
+                {{description.value.length}} / 255
+            </mat-hint>
+
+            <mat-error *ngIf="getDescription.invalid">Field is required</mat-error>
+        </mat-form-field>
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+
+    <button [mat-dialog-close] class="btn btn-danger" >Close</button>
+    <button  (click)="onSubmit()" [disabled]="loading || getWorkoutForm.invalid " class="btn btn-primary"  style="margin-left: auto">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Submit
+
+
+    </button>
+
+
+</mat-dialog-actions>
+

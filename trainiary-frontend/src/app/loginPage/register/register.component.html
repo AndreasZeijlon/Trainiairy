@@ -1,0 +1,56 @@
+<div class="card">
+    <h4 class="card-header" style="font-size: 22px">Register</h4>
+
+    <div class="card-body">
+        <form [formGroup]="registerForm" class="formwidth" (ngSubmit)="onSignup()">
+
+            <mat-form-field class="fullwidth">
+                <mat-label>Username</mat-label>
+                <input matInput class="form-control" formControlName="username" id="username" name="username" required>
+                <mat-error *ngIf="getUsername.invalid">Username is required</mat-error>
+
+            </mat-form-field>
+
+
+
+            <mat-form-field class="fullwidth">
+                <mat-label>Password</mat-label>
+                <input matInput class="form-control" formControlName="password" id="password"  name="password" [type]="hidePassword ? 'password' : 'text'" required>
+                <mat-icon class="pointer" matSuffix (click)="hidePassword=!hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="getPassword.hasError('required')">Password is required</mat-error>
+                <mat-error *ngIf="getPassword.hasError('minlength')">Password must be 4 characters long</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field class="fullwidth">
+                <mat-label>Confirm password</mat-label>
+                <input matInput class="form-control" formControlName="confirmpassword" id="confirmpassword"  name="confirmpassword" [type]="hideConfirmPassword ? 'password' : 'text'" required>
+                <mat-icon class="pointer" matSuffix (click)="hideConfirmPassword=!hideConfirmPassword">{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="getConfirmPassword.hasError('unEqual')">Passwords must match</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field class="fullwidth">
+                <mat-label>First name</mat-label>
+                <input matInput class="form-control" formControlName="firstname" id="firstname" name="firstname" required>
+                <mat-error *ngIf="getFirstname.invalid">First name is required</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field class="fullwidth">
+                <mat-label>Last name</mat-label>
+                <input matInput class="form-control" formControlName="lastname" id="lastname" name="lastname" required>
+                <mat-error *ngIf="getLastname.invalid">Lastname is required</mat-error>
+
+            </mat-form-field>
+            
+            <div class="form-group" style="margin-top:10px;">
+                <button type="Submit" [disabled]="loading || getRegisterForm.invalid " class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Sign Up!
+                </button>
+                <a routerLink="../login" class="btn btn-link">Login</a>
+            </div>
+        </form>
+    </div>
+</div>

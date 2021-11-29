@@ -1,0 +1,36 @@
+
+
+<div class="card">
+    <h4 class="card-header" style="font-size: 22px">Login</h4>
+    <div class="card-body">
+        <form [formGroup]=loginForm class="formwidth" (ngSubmit)="onLogin()">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput class="form-control" formControlName="username" id="username" name="username" required>
+                <mat-error *ngIf="getUsername.invalid">Username is required</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>Password</mat-label>
+                <input matInput class="form-control" formControlName="password" id="password" name="password" [type]="hide ? 'password' : 'text'" required>
+
+                <mat-icon class="pointer" matSuffix (click)="hide=!hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+
+                <mat-error *ngIf="getPassword.hasError('required')">Password is required</mat-error>
+                <mat-error *ngIf="getPassword.hasError('minlength')">Password must be 4 characters long</mat-error>
+
+                    
+            </mat-form-field>
+        
+            <div class="form-group" style="margin-top:10px;">
+                <button type="Submit" [disabled]="loading || getLoginForm.invalid" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Login
+                </button>
+                <a routerLink="../register" class="btn btn-link">Register</a>
+            </div>
+        </form>
+    </div>
+</div>

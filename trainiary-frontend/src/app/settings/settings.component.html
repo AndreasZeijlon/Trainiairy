@@ -1,0 +1,57 @@
+<div class="settings">
+
+    <mdb-card>
+        
+        <mdb-card-body>
+                  
+            <!--Title-->
+            <mdb-card-title>
+                <h1>Settings</h1>
+            </mdb-card-title>
+
+            <!--Text-->
+            <mdb-card-text> 
+                Change password here:
+            </mdb-card-text>
+
+            <form [formGroup]="passwordForm" class="formwidth" (ngSubmit)="onChangePassword()">
+    
+                <mat-form-field class="fullwidth">
+                    <mat-label>Current password</mat-label>
+                    <input matInput class="form-control" formControlName="currentpassword" id="currentpassword"  name="currentpassword" [type]="hideCurrentPassword ? 'password' : 'text'" required>
+                    <mat-icon class="pointer" matSuffix (click)="hideCurrentPassword=!hideCurrentPassword">{{hideCurrentPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error *ngIf="f.currentpassword.hasError('required')">Field is required</mat-error>
+                    <mat-error *ngIf="f.currentpassword.hasError('minlength')">Password must be 4 characters long</mat-error>
+    
+                </mat-form-field>
+    
+                <mat-form-field class="fullwidth">
+                    <mat-label>New password</mat-label>
+                    <input matInput class="form-control" formControlName="newpassword" id="newpassword"  name="newpassword" [type]="hideNewPassword ? 'password' : 'text'" required>
+                    <mat-icon class="pointer" matSuffix (click)="hideNewPassword=!hideNewPassword">{{hideNewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    
+                    <mat-error *ngIf="f.newpassword.hasError('required')">Field is required</mat-error>
+                    <mat-error *ngIf="f.newpassword.hasError('minlength')">Password must be 4 characters long</mat-error>
+    
+                </mat-form-field>
+    
+                <mat-form-field class="fullwidth">
+                    <mat-label>Confirm new password</mat-label>
+                    <input matInput class="form-control" formControlName="confirmnewpassword" id="confirmnewpassword"  name="confirmnewpassword" [type]="hideConfirmNewPassword ? 'password' : 'text'" required>
+                    <mat-icon class="pointer" matSuffix (click)="hideConfirmNewPassword=!hideConfirmNewPassword">{{hideConfirmNewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error *ngIf="f.newpassword.hasError('required')">Field is required</mat-error>
+                    <mat-error *ngIf="f.confirmnewpassword.hasError('unEqual')">Passwords must match</mat-error>
+    
+                </mat-form-field>
+                
+                <div class="form-group" style="margin-top:10px;">
+                    <button type="Submit" [disabled]="loading || getFormGroup.invalid " class="btn btn-primary">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Change password
+                    </button>
+                </div>
+            </form>
+
+        </mdb-card-body>
+    </mdb-card>
+</div>

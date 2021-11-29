@@ -1,0 +1,134 @@
+<mat-grid-list cols="2" rowHeight='fit' >
+
+  <mat-grid-tile [colspan]="2" >
+    <div class="myChart">
+      <canvas id="chart" mdbChart
+          [chartType]="chartType"
+          [datasets]="chartDatasets"
+          [labels]="chartLabels"
+          [colors]="chartColors"
+          [legend]="true"
+          [options]="chartOptions"
+          
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"
+          
+          #chart
+          >
+      </canvas>
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile [style.background]="'lightblue'">
+
+    <div class="innerDiv">
+    
+      <mdb-card class="myCard" id="graphCard">
+        <!--Card content-->
+        <mdb-card-body>
+      
+          <!--Title-->
+          <mdb-card-title style="font-size: 12pt;">
+            Settings
+          </mdb-card-title>
+      
+          <!--Text-->
+          <mdb-card-text> 
+            Set a date range to see statistics of workouts performed in that range. 
+          </mdb-card-text>
+
+          <form [formGroup]="statisticForm" class="formwidth">
+            
+            <mat-form-field appearance="fill">
+              <mat-label>Enter a date range</mat-label>
+              <mat-date-range-input  [rangePicker]="picker">
+                <input matStartDate formControlName="startdate" placeholder="Start date" >
+                <input matEndDate formControlName="enddate" placeholder="End date" (dateChange)="onDateChange($event)">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            
+              <mat-error *ngIf="statisticForm.controls.startdate.hasError('matStartDateInvalid') || statisticForm.controls.startdate.hasError('matDatepickerParse')">Invalid start date</mat-error>
+              <mat-error *ngIf="statisticForm.controls.enddate.hasError('matEndDateInvalid') || statisticForm.controls.enddate.hasError('matDatepickerParse')">Invalid end date</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Unit</mat-label>
+              <mat-select formControlName="unit" (selectionChange)="onUnitChange($event)">
+
+                <mat-option value="day">
+                  Day
+                </mat-option>
+                <mat-option value="week">
+                  Week
+                </mat-option>
+                <mat-option value="month">
+                  Month
+                </mat-option>
+                <mat-option value="year">
+                  Year
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill">
+
+              <mat-label>Data</mat-label>
+              <mat-select formControlName="datatype" (selectionChange)="onDataTypeChange($event)">
+                <mat-option value="workouts">
+                  Workouts
+                </mat-option>
+                <mat-option value="distance">
+                  Distance
+                </mat-option>
+                <mat-option value="time">
+                  Time
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </form>
+        </mdb-card-body>
+      </mdb-card> 
+    
+    </div>
+
+
+
+
+  </mat-grid-tile >
+  
+  <mat-grid-tile [style.background]="'lightblue'">
+
+    <div class="innerDiv">
+      <mdb-card class="myCard" id="statisticsCard">
+        <mdb-card-body>
+          <mdb-card-title style="font-size: 12pt;">
+            Average statistics of workouts between {{dateRange.start.format("YYYY-MM-DD")}} - {{dateRange.end.format("YYYY-MM-DD")}}
+          </mdb-card-title>
+
+          <mat-list role="list" >
+            <mat-list-item role="listitem">{{shownStats.workouts}} workouts/{{selectedUnit}}</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item role="listitem">{{shownStats.distance}} km/{{selectedUnit}}</mat-list-item>
+            <mat-divider></mat-divider>
+            
+            <mat-list-item role="listitem">{{shownStats.time}} hours/{{selectedUnit}}</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item role="listitem">
+
+              <h4 matLine>Intensity level ratio</h4>
+              <p matLine>1: {{shownStats.intensity[1]}}% | 2: {{shownStats.intensity[2]}}% | 3: {{shownStats.intensity[3]}}% | 4: {{shownStats.intensity[4]}}% | 5: {{shownStats.intensity[5]}}%
+              </p>
+            </mat-list-item>
+          </mat-list>
+          
+        </mdb-card-body>
+      </mdb-card>
+
+    </div>
+    </mat-grid-tile>  
+
+</mat-grid-list>

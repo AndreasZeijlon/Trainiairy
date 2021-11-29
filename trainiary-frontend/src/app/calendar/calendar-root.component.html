@@ -1,0 +1,7 @@
+<app-calendar (showEventInfo)="showEventInfo($event)" (updateEventInfo)="updateEventInfo($event)"></app-calendar>
+
+<app-workout-form></app-workout-form>
+
+
+<app-event-info [eventInfo]="eventInfo" (updateVisible)="showEventInfo($event)" *ngIf='eventInfoVisible'></app-event-info>
+

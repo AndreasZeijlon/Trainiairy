@@ -1,0 +1,17 @@
+#login-root {
+    position: relative;
+    display: flex;
+    top: 50px;
+    justify-content: center;
+}
+
+#login-content {
+    width: 20vw;
+    min-width: 300px;
+    max-width: 600px;
+}
+
+.title{
+    display:flex;
+    justify-content: center;
+}

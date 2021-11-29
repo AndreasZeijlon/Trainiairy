@@ -1,0 +1,13 @@
+#eventInfoCard {
+    max-width: 400px;
+    width: 30vw;
+    display: flex;
+}
+
+.mat-card-header-text {
+    margin:0px !important;
+}
+
+.table{
+    word-wrap: break-word;
+}

@@ -1,0 +1,42 @@
+<div id="eventInfoCard">
+    <mat-card style="width: inherit;">
+        <mat-card-title>
+          Workout info {{eventDate.format("YYYY-MM-DD")}}
+          <button class="btn btn-primary" style="float: right; margin:-10px" (click)="toggleVisible()">X</button>
+        </mat-card-title>
+        <mat-card-content>
+            <table style="width:100%; table-layout: fixed;">
+                <tr>
+                  <th>Sport</th>
+                  <td style="word-wrap: break-word;">{{eventInfo.extendedProps.workoutInfo.sport}}</td>
+                </tr>
+                <tr>
+                  <th>Duration</th>
+                  <td>{{eventInfo.extendedProps.workoutInfo.duration}}</td>
+                </tr>
+                <tr>
+                  <th>Distance</th>
+                  <td>{{eventInfo.extendedProps.workoutInfo.distance}}</td>
+                </tr>
+                <tr>
+                    <th>Intensity</th>
+                    <td>{{eventInfo.extendedProps.workoutInfo.intensity}}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td style="word-wrap: break-word;">{{eventInfo.extendedProps.workoutInfo.description}}</td>
+                </tr>
+              </table> 
+
+        </mat-card-content>
+    
+        <mat-card-actions>
+            <button class="btn btn-danger" style="float: right;" (click)="deleteEvent()">Delete</button>
+            <button class="btn btn-success btn-sm" (click)="editEvent()">
+
+            <mat-icon >edit</mat-icon>
+            
+              </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
